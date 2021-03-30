@@ -7,7 +7,6 @@ int main() {
 
     MetroTrain SPB_METRO_TRAIN(false, true, false);
     ShowStatus(SPB_METRO_TRAIN);
-    SPB_METRO_TRAIN.SetDoorStatus(false);
 
     int choice = 1;
     while (choice != 6) {
@@ -22,10 +21,16 @@ int main() {
         cout << "6. Завершить поездку" << endl;
         cin >> choice;
         switch (choice) {
-            case 1: { MovingTrain(SPB_METRO_TRAIN); }break;
-            case 2: { OpenDoor(SPB_METRO_TRAIN); }break;
-            case 3: { CloseDoor(SPB_METRO_TRAIN); }break;
-            case 4: { CheckTime(SPB_METRO_TRAIN); }break;
+            case 1: {
+                if (MovingTrain(SPB_METRO_TRAIN)) {
+                    SPB_METRO_TRAIN.SetMovingStatus(false);
+                    SPB_METRO_TRAIN.SetDoorStatus(false);
+                    SPB_METRO_TRAIN.SetScheduleStatus(false);
+                }
+            }break;
+            case 2: { SPB_METRO_TRAIN.SetDoorStatus( OpenDoor(SPB_METRO_TRAIN) ); }break;
+            case 3: { SPB_METRO_TRAIN.SetDoorStatus( CloseDoor(SPB_METRO_TRAIN) ); }break;
+            case 4: { SPB_METRO_TRAIN.SetScheduleStatus( CheckTime(SPB_METRO_TRAIN) ); }break;
             case 5: { ShowStatus(SPB_METRO_TRAIN); }break;
             case 6: {
                 cout << "===============================================" << endl;

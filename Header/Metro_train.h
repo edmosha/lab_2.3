@@ -26,11 +26,11 @@ class MetroTrain {
     bool scheduleStatus;
 };
 
-void MovingTrain (MetroTrain modelTrain);
+bool MovingTrain (MetroTrain modelTrain);
 void ShowStatus (MetroTrain modelTrain);
-void OpenDoor (MetroTrain modelTrain);
-void CloseDoor (MetroTrain modelTrain);
-void CheckTime (MetroTrain modelTrain);
+bool OpenDoor (MetroTrain modelTrain);
+bool CloseDoor (MetroTrain modelTrain);
+bool CheckTime (MetroTrain modelTrain);
 
 
 #endif //LAB_2_3_METRO_TRAIN_H

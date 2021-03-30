@@ -1,31 +1,30 @@
 #include "../Header/Metro_train.h"
 
-void MovingTrain (MetroTrain modelTrain) {
+bool MovingTrain (MetroTrain modelTrain) {
+    if (modelTrain.GetDoorStatus()) { cout << "Двери открыты, ехать нельзя!" << endl; }
+    if (!modelTrain.GetScheduleStatus()) { cout << "Поезд спешит, нужно подождать!" << endl; }
     if (!modelTrain.GetDoorStatus() and modelTrain.GetScheduleStatus()) {
         modelTrain.SetMovingStatus(true);
         ShowStatus(modelTrain);
         cout << "===============================================" << endl;
         cout << "*              ПОЕЗД ОТПРАВЛЯЕТСЯ             *" << endl;
         cout << "===============================================" << endl;
-        Sleep(2000);
-        cout << "Чу-чух чу-чух.." << endl;
-        Sleep(1200);
-        cout << "Чу-чух чу-чух.." << endl;
-        Sleep(700);
-        cout << "Чу-чух чу-чух.." << endl;
-        Sleep(400);
+        Sleep(2500);
         cout << "Чу-чух чу-чух.." << endl;
         Sleep(2000);
+        cout << "Чу-чух чу-чух.." << endl;
+        Sleep(2000);
+        cout << "Чу-чух чу-чух.." << endl;
+        Sleep(2000);
+        cout << "Чу-чух чу-чух.." << endl;
+        Sleep(2500);
         cout << "===============================================" << endl;
         cout << "*        ПОЕЗД ПРИБЫЛ НА НОВУЮ СТАНЦИЮ        *" << endl;
         cout << "===============================================" << endl;
 
-        modelTrain.SetMovingStatus(false);
-        modelTrain.SetDoorStatus(false);
-        modelTrain.SetScheduleStatus(false);
+        return true;
     }
-    if (modelTrain.GetDoorStatus()) { cout << "Двери открыты, ехать нельзя!" << endl; }
-    if (!modelTrain.GetScheduleStatus()) { cout << "Поезд спешит, нужно подождать!" << endl; }
+    return false;
 }
 
 void ShowStatus (MetroTrain modelTrain) {
@@ -37,32 +36,44 @@ void ShowStatus (MetroTrain modelTrain) {
     if (modelTrain.GetScheduleStatus()) { status = "по расписанию";} else status = "поезд спешит";
     cout << "Соответствие графику: " << status << endl;
 }
-void OpenDoor (MetroTrain modelTrain) {
-    if (modelTrain.GetDoorStatus()) { cout << "Двери уже открыты" << endl << endl; }
+bool OpenDoor (MetroTrain modelTrain) {
+    if (modelTrain.GetDoorStatus()) {
+        cout << "Двери уже открыты!" << endl;
+        return true;
+    }
     else {
         cout << "===============================================" << endl;
         cout << "*                ДВЕРИ ОТКРЫТЫ                *" << endl;
         cout << "===============================================" << endl;
-        modelTrain.SetDoorStatus(true);
+        return true;
     }
 }
 
-void CloseDoor (MetroTrain modelTrain) {
-    if (!modelTrain.GetDoorStatus()) { cout << "Двери уже закрыты" << endl << endl; }
+bool CloseDoor (MetroTrain modelTrain) {
+    if (!modelTrain.GetDoorStatus()) {
+        cout << "Двери уже закрыты!" << endl;
+        return false;
+    }
     else {
         cout << "===============================================" << endl;
         cout << "*                ДВЕРИ ЗАКРЫТЫ                 *" << endl;
         cout << "===============================================" << endl;
-        modelTrain.SetDoorStatus(false);
+        return false;
     }
 }
 
-void CheckTime (MetroTrain modelTrain) {
-    if (modelTrain.GetScheduleStatus()) { cout << "Поезд идет по расписанию" << endl; } else {
+bool CheckTime (MetroTrain modelTrain) {
+    if (modelTrain.GetScheduleStatus()) {
+        cout << "Поезд идет по расписанию" << endl;
+        return true;
+    } else {
         if ((rand() % 10)%2 == 0) {
-            modelTrain.SetScheduleStatus(true);
             cout << "Как раз по расписанию, пора ехать" << endl;
-        } else cout << "Поезд спешит. Подождите немного!" << endl;
+            return true;
+        } else {
+            cout << "Поезд спешит. Подождите немного!" << endl;
+            return false;
+        }
     }
 }
 
